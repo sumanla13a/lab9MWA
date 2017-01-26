@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1 This is the map
+  div#wrapper
+    div#map
+    div#over_map
+      input(type="radio" name="map" value="save" checked)
+      | Save
+      input(type="radio" name="map" value="find")
+      | Find
+      | &nbsp;
+      Select#name
+        option(disabled) Name
+        option(value="Restaurant") Restaurant
+        option(value="School") School
+      button#nearMe
+        Find near me
+  script(src="/javascripts/map.js")
+  script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9KSi-1KtZY0J8xFZp_i23nd6tXyiYy84&callback=initMap")
