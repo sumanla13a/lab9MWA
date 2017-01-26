@@ -72,6 +72,7 @@
 
         window.onload = function() {
             document.getElementById('nearMe').onclick = function() {
+                console.log(document.getElementById('name').value);
                 function success(position) {
                     find({
                         lat: position.coords.latitude,

@@ -93,29 +93,27 @@ var controllers = {
 	getLocationsNearMum: function(req, res, next) {
 		req.checkQuery('lat', 'Where is the name?').notEmpty();
 		req.checkQuery('lng', 'Where is the name?').notEmpty();
-
 		req.getValidationResult().then(function(result) {
 			if(!result.isEmpty()) {
 				return next(new Error('There have been validation errors: ' + util.inspect(result.array())));
 			}
 			var query = {
-				location: {
-					$near: {
-						$geometry: {
-							type: 'Point',
-							coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)]
-						}
+				/*'location.coordinates': {
+					'$geoWithin': {
+						'$centerSphere':[ [parseFloat(req.query.lng), parseFloat(req.query.lat)], 1000000000 ]
 					}
-				}
+
+				}*/
 			};
 			// can't use text index search with any other indexed searches
 			if(req.query.name) {
-				query.name = { '$regex': req.query.name, '$options': 'i' };
+				// query.name = { '$regex': req.query.name, '$options': 'i' };
+				query.$text = { $search : req.query.name};
 			}
-			if(req.query.category) {
+			/*if(req.query.category) {
 				query.category = { '$regex': req.query.category, '$options': 'i' };
-			}
-			console.log(query);
+			}*/
+
 			locations.find(query, {
 				limit: 3
 			}, function(err, resp) {
