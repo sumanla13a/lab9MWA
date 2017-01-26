@@ -98,12 +98,12 @@ var controllers = {
 				return next(new Error('There have been validation errors: ' + util.inspect(result.array())));
 			}
 			var query = {
-				/*'location.coordinates': {
+				'location.coordinates': {
 					'$geoWithin': {
 						'$centerSphere':[ [parseFloat(req.query.lng), parseFloat(req.query.lat)], 1000000000 ]
 					}
 
-				}*/
+				}
 			};
 			// can't use text index search with any other indexed searches
 			if(req.query.name) {
