@@ -76,7 +76,8 @@
                     find({
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
-                        name: document.getElementById('name').value
+                        name: document.getElementById('name').value,
+                        category: document.getElementById('category').value
                     });
                 }
                 function fail(err) {

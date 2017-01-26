@@ -38,8 +38,8 @@ var controllers = {
 
 	saveLocations: function(req, res, next) {
 		let data = {
-			name: 		Math.random() > 0.5 ? 'Restaurant' : 'School',
-			category: 	req.body.category || 'dummy category for now',
+			name: 		req.body.cityname,
+			category: 	Math.random() > 0.5 ? 'Restaurant' : 'School',
 			location: {
 				coordinates: 	[parseFloat(req.body.lng),	parseFloat(req.body.lat)],
 				type: 			'Point'
@@ -108,9 +108,14 @@ var controllers = {
 					}
 				}
 			};
+			// can't use text index search with any other indexed searches
 			if(req.query.name) {
-				query.name = req.query.name;
+				query.name = { '$regex': req.query.name, '$options': 'i' };
 			}
+			if(req.query.category) {
+				query.category = { '$regex': req.query.category, '$options': 'i' };
+			}
+			console.log(query);
 			locations.find(query, {
 				limit: 3
 			}, function(err, resp) {
@@ -131,8 +136,8 @@ var controllers = {
 };
 
 router.get('/', controllers.getLocationPage)
-	.post('/', controllers.validateLocations, controllers.saveLocations)
-	.put('/', controllers.validateLocations, controllers.saveLocations)
+	.post('/', controllers.validateLocations, controllers.getCityName, controllers.saveLocations)
+	.put('/', controllers.validateLocations, controllers.getCityName, controllers.saveLocations)
 	.delete('/', controllers.deleteLocations);
 
 router.post('/:id/delete', controllers.deleteLocations)
