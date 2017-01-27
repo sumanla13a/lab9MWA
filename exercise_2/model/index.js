@@ -6,5 +6,6 @@ var mongo = require('mongoskin');
 var db = mongo.db(config.db, {native_parser: true});
 
 db.bind('locations');
-
+// To create index
+// db.locations.ensureIndex( { "$**": "text" } )
 module.exports = db;
