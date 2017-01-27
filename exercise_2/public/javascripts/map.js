@@ -72,13 +72,11 @@
 
         window.onload = function() {
             document.getElementById('nearMe').onclick = function() {
-                console.log(document.getElementById('name').value);
                 function success(position) {
                     find({
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
-                        name: document.getElementById('name').value,
-                        category: document.getElementById('category').value
+                        name: document.getElementById('name').value
                     });
                 }
                 function fail(err) {
