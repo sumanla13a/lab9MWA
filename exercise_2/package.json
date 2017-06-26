@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node-dev ./bin/www"
+    "start": "node-dev ./bin/www",
+    "test": "echo \"Error: I SHOULD FAIL LOLOLOLOLOL \" && exit 1"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -17,5 +18,11 @@
     "mongoskin": "^2.1.0",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "pre-push": "^0.1.1"
+  },
+  "pre_push": {
+    "test"
   }
 }
